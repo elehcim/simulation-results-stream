@@ -10,6 +10,7 @@ labels = {'avg_mu_e': r"$\bar{\mu}_{e,r'}$ (mag/arcsec$^2$)",
           'mag_sdss_r': r"M$_{r'}$",
           'r_eff3d': r"R$_{e}^{3d}$ (kpc)",
           'sigma_star': r"$\sigma_\star$ (km/s)",
+          'm_halo_m_star': r'$M_h/M_\star$',
           }
 
 FIGSIZE = (5, 1.2)

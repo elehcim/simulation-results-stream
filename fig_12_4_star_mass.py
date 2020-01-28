@@ -23,15 +23,18 @@ def plot_mass(big_df, which):
 
             k = f'{name}p{peri}'
             if which is 'total':
-                mass = group.mass_star + group.dm_mass + group.cold_gas
+                plottable = group.mass_star + group.dm_mass + group.cold_gas
                 ylabel = 'M$_{tot}$ (M$_\odot$)'
             elif which is 'star':
-                mass =  group.mass_star
+                plottable =  group.mass_star
                 ylabel = labels['mass_star']
+            elif which is 'm_halo_m_star':
+                plottable = group.dm_mass / group.mass_star
+                ylabel = labels['m_halo_m_star']
             else:
-                raise RuntimeError('Can plot only total or stars')
+                raise RuntimeError('Can plot only total or stars or m_halo_m_star')
 
-            ax_s.plot(group.t_period, mass, label=peri, alpha=0.8)
+            ax_s.plot(group.t_period, plottable, label=peri, alpha=0.8)
         if ax_s is not ax[-1]: ax_s.set_xticklabels([])
 
         # print(ax_s.yaxis.get_major_formatter())
