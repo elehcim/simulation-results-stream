@@ -26,14 +26,15 @@ def get_data_source(cache_file='data_d_orbit_sideon_20191219.pkl'):
 d, dl, big_df = get_data_source()
 
 def generate_figs(cold_gas=True):
-    Figs = namedtuple('Fig', 'r_eff star_mass tot_mass ssfr')
+    fields = 'r_eff star_mass tot_mass ssfr'
+    Figs = namedtuple('Fig', fields)
 
     figs = Figs(plot_r_eff3d(big_df),
                 plot_mass(big_df, 'star'),
                 plot_mass(big_df, 'total'),
                 plot_ssfr(big_df, cold_gas=cold_gas),
                 )
-    di = dict(zip('r_eff star_mass tot_mass ssfr'.split(), figs))
+    # di = dict(zip(fields.split(), figs))
     return figs
     # return di
 
