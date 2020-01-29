@@ -13,7 +13,8 @@ from fig_12_4_star_mass import plot_mass
 from fig_12_2_sfr import plot_ssfr
 from fig_07_0_avg_mu_e_Aku import plot_avg_mu_e_aku
 
-
+import subprocess
+label = subprocess.check_output(["git", "describe", "--dirty", "--always", "--tags"]).strip()
 
 # Data source
 @st.cache(allow_output_mutation=True)
@@ -49,6 +50,7 @@ selectbox = st.sidebar.radio(
     'Which plot',
     fields,
 )
+st.sidebar.markdown(f'`version: {label.decode()}`')
 
 
 if selectbox == 'r_eff':
