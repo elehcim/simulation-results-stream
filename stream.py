@@ -44,7 +44,7 @@ fields = 'r_eff star_mass tot_mass m_halo_m_star ssfr avg_mu_e'.split()
 ###
 
 # Adds a selectbox to the sidebar
-selectbox = st.sidebar.selectbox(
+selectbox = st.sidebar.radio(
     'Which plot',
     fields,
 )
@@ -85,7 +85,7 @@ elif selectbox == 'avg_mu_e':
                               )
             )
 
-elif selectbox == 'sSFR':
+elif selectbox == 'ssfr':
     st.markdown('# sSFR')
     cold_gas = st.checkbox('Plot cold gas')
     st.write(plot_ssfr(big_df, cold_gas))
