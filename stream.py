@@ -65,23 +65,30 @@ elif selectbox == 'tot_mass':
     st.write(plot_mass(big_df, 'total'))
 
 elif selectbox == 'm_halo_m_star':
-    st.markdown('# M_h/M_* mass')
+    st.markdown('# M$_h$/M$_\star$ mass')
     st.write(plot_mass(big_df, 'm_halo_m_star'))
+    st.markdown('# The final stage of M$_h$/M$_\star$ mass')
+    st.markdown('Do I have any galaxy without DM?')
+    st.markdown('''Usually ones considers without DM a galaxy which has DM content equal to barionic one.
+                 Given this, I don't have enough DM loss.''')
+    st.markdown('It is worth noting that the mass is computed within a 10 kpc sphere')
+
+    st.write(plot_mass(big_df, 'm_halo_m_star', xlim=(1, None), log=True))
 
 elif selectbox == 'avg_mu_e':
     st.markdown('# Average surface brightness inside R_eff')
     sim_n = st.selectbox('Which simulation:', [62, 41])
     color_by = st.radio('Color by:', ['sfr', 'ssfr'])
-    how_many_snaps = st.slider('how many points to show',
-                                min_value=5,
-                                # max_value=len(d[f'{sim_n}p50']),
-                                max_value=30,
-                                value=15,
-                                step=5)
+    # how_many_snaps = st.slider('how many points to show',
+    #                             min_value=5,
+    #                             # max_value=len(d[f'{sim_n}p50']),
+    #                             max_value=30,
+    #                             value=15,
+    #                             step=5)
     st.write(plot_avg_mu_e_aku(copy.deepcopy(d),
                                sim_n=int(sim_n),
                                color_by=color_by,
-                               how_many_snaps=how_many_snaps,
+                               # how_many_snaps=how_many_snaps,
                                show_aku=True,
                               )
             )
