@@ -3,6 +3,7 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import os
+import copy
 
 from common.data_handler import DataHandler
 from collections import namedtuple
@@ -15,7 +16,7 @@ from fig_07_0_avg_mu_e_Aku import plot_avg_mu_e_aku
 
 
 # Data source
-@st.cache
+@st.cache(allow_output_mutation=True)
 def get_data_source(cache_file='data_d_orbit_sideon_20191219.pkl'):
     d = DataHandler(cache_file=cache_file).data()
     dl = DataHandler(cache_file=cache_file).data_last()
@@ -77,7 +78,7 @@ elif selectbox == 'avg_mu_e':
                                 max_value=30,
                                 value=15,
                                 step=5)
-    st.write(plot_avg_mu_e_aku(d,
+    st.write(plot_avg_mu_e_aku(copy.deepcopy(d),
                                sim_n=int(sim_n),
                                color_by=color_by,
                                how_many_snaps=how_many_snaps,

@@ -22,7 +22,7 @@ _extrema = {'sfr':  {41: (0.0004326997212649507, 0.03681058373613701),
 
 
 
-def plot_avg_mu_e_aku(d, sim_n:int, color_by, how_many_snaps, show_aku=True):
+def plot_avg_mu_e_aku(d, sim_n:int, color_by, how_many_snaps=15, show_aku=True):
     """
     sim_n can be
     color_by can be 'sfr' or 'ssfr'"""
@@ -54,9 +54,11 @@ def plot_avg_mu_e_aku(d, sim_n:int, color_by, how_many_snaps, show_aku=True):
 
         slicer = np.linspace(0, len(d[k])-1, how_many_snaps, dtype=int)
         print(slicer)
-        df = d[k].iloc[slicer]
+        df = d[k].copy().iloc[slicer]
         df.loc[:, 'ssfr'] = df['sfr'] / df['mass_star']
-
+        # if color_by == 'ssfr':
+        #     color_column = df['sfr'] / df['mass_star']
+        # else:
         color_column = df[color_by]
         # print(d[k][0:10].sfr)
 
