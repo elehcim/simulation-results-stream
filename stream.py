@@ -15,7 +15,7 @@ from fig_07_0_avg_mu_e_Aku import plot_avg_mu_e_aku
 from fig_04_1_color_magnitude_Aku_rt_criterion import plot_color_magnitude_aku
 import subprocess
 
-git_version = subprocess.check_output(["git", "describe", "--dirty", "--always", "--tags"]).strip()
+git_version = subprocess.check_output(["git", "describe", "--dirty", "--always", "--tags"]).strip().decode()
 
 # Data source
 @st.cache(allow_output_mutation=True)
@@ -51,7 +51,8 @@ which_plot = st.sidebar.radio(
     'Which plot',
     fields,
 )
-st.sidebar.markdown(f'`version: {git_version.decode()}`')
+
+st.sidebar.markdown(f'`version: {git_version}`')
 
 if which_plot == 'r_eff':
     st.markdown('# R_eff')
@@ -68,7 +69,7 @@ elif which_plot == 'tot_mass':
 
 elif which_plot == 'sigma':
     st.markdown('# Velocity dispersion')
-    st.markdown('This is the central cvelocity dispersion within 250 pc.')
+    st.markdown('This is the central velocity dispersion within 250 pc.')
     rolling_mean = st.checkbox('Rolling mean')
     st.write(plot_sigma(big_df, rolling_mean))
 
