@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
-import os
 import copy
 
 from simulation.data_handler import DataHandler
@@ -15,6 +14,7 @@ from fig_12_2_sfr import plot_ssfr
 from fig_07_0_avg_mu_e_Aku import plot_avg_mu_e_aku
 from fig_04_1_color_magnitude_Aku_rt_criterion import plot_color_magnitude_aku
 import subprocess
+
 git_version = subprocess.check_output(["git", "describe", "--dirty", "--always", "--tags"]).strip()
 
 # Data source
@@ -34,7 +34,6 @@ fields = 'r_eff sigma star_mass tot_mass m_halo_m_star ssfr avg_mu_e color_magni
 
 # def generate_figs(cold_gas=True):
 #     Figs = namedtuple('Fig', fields)
-
 #     figs = Figs(plot_r_eff3d(big_df),
 #                 plot_mass(big_df, 'star'),
 #                 plot_mass(big_df, 'total'),
@@ -54,7 +53,6 @@ which_plot = st.sidebar.radio(
 )
 st.sidebar.markdown(f'`version: {git_version.decode()}`')
 
-
 if which_plot == 'r_eff':
     st.markdown('# R_eff')
     rolling_mean = st.checkbox('Rolling mean')
@@ -72,7 +70,7 @@ elif which_plot == 'sigma':
     st.markdown('# Velocity dispersion')
     st.markdown('This is the central cvelocity dispersion within 250 pc.')
     rolling_mean = st.checkbox('Rolling mean')
-    st.write(plot_sigma(big_df,rolling_mean))
+    st.write(plot_sigma(big_df, rolling_mean))
 
 elif which_plot == 'm_halo_m_star':
     st.markdown('# M$_h$/M$_\star$ mass')
@@ -100,8 +98,8 @@ elif which_plot == 'avg_mu_e':
                                color_by=color_by,
                                # how_many_snaps=how_many_snaps,
                                show_aku=True,
-                              )
-            )
+                               )
+             )
 
 elif which_plot == 'ssfr':
     st.markdown('# sSFR')
