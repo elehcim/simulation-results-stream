@@ -94,7 +94,7 @@ elif which_plot == 'avg_mu_e':
     #                             max_value=30,
     #                             value=15,
     #                             step=5)
-    st.write(plot_avg_mu_e_aku(copy.deepcopy(d),
+    st.write(plot_avg_mu_e_aku(d,
                                sim_n=int(sim_n),
                                color_by=color_by,
                                # how_many_snaps=how_many_snaps,
