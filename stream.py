@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 import copy
 
-from common.data_handler import DataHandler
+from simulation.data_handler import DataHandler
 from collections import namedtuple
 
 from fig_00_r_eff import plot_r_eff3d
