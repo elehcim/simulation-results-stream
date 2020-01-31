@@ -24,7 +24,6 @@ _extrema = {'sfr': {41: (0.0004326997212649507, 0.03681058373613701),
 
 def plot_avg_mu_e_aku(d, sim_n: int, color_by, how_many_snaps=15, show_aku=True):
     """
-    sim_n can be
     color_by can be 'sfr' or 'ssfr'"""
     orbits = [k for k in d.keys() if k.startswith(str(sim_n))]
     assert len(orbits) != 0
@@ -77,6 +76,9 @@ def plot_avg_mu_e_aku(d, sim_n: int, color_by, how_many_snaps=15, show_aku=True)
                 alpha=0.8,
                 )
 
+        cbar = fig.colorbar(mappable, ax=ax)
+        cbar.ax.set_ylabel(labels[color_by])
+
         ax.grid(linestyle=":")
         # Fix extrema
         # ax.set_ylim(cm.extent[2:])
@@ -85,13 +87,13 @@ def plot_avg_mu_e_aku(d, sim_n: int, color_by, how_many_snaps=15, show_aku=True)
 
         # Print extrema
         vals = color_column.values
-        print(vals)
+        # print(vals)
         nonzero = vals[np.nonzero(vals)]
         if nonzero.size == 0:
             minval = 0
         else:
             minval = np.min(vals[np.nonzero(vals)])
-        print(minval, color_column.max())
+        # print(minval, color_column.max())
         ax.set_title(k)
         ax.set_xlabel(labels['mag_sdss_r'])
         ax.set_ylabel(labels['avg_mu_e'])
@@ -102,9 +104,8 @@ def plot_avg_mu_e_aku(d, sim_n: int, color_by, how_many_snaps=15, show_aku=True)
         # ax.set_ylim(df.avg_mu_e.max())
 
     print(f"Color extrema: vmin={vmin}, vmax={vmax}")
-    print(axs)
-    cbar = fig.colorbar(mappable, ax=axs.ravel().tolist())
-    cbar.ax.set_ylabel(labels[color_by])
+    # cbar = fig.colorbar(mappable, ax=axs.ravel().tolist())
+    # cbar.ax.set_ylabel(labels[color_by])
     return fig
 # file_stem = os.path.splitext(os.path.basename(__file__))[0]
 # plt.savefig(f'{file_stem}.pdf')
