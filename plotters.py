@@ -12,14 +12,14 @@ import cycler
 plt.style.use('./MNRAS.mplstyle')
 
 EXTREMA = {'sfr': {41: (0.0004326997212649507, 0.03681058373613701),
-                    62: (0.0004326997212649507, 0.03681058373613701),
-                    'default': (1e-5, 2e-3),
+                   62: (0.0004326997212649507, 0.03681058373613701),
+                   'default': (1e-5, 2e-3),
+                   },
+           'ssfr': {41: (2.313699463943961e-11, 1.2062309021873976e-09),
+                    62: (8.77977968105377e-11, 6.750326315134827e-09),
+                    'default': (5e-12, 2e-9),
                     },
-            'ssfr': {41: (2.313699463943961e-11, 1.2062309021873976e-09),
-                     62: (8.77977968105377e-11, 6.750326315134827e-09),
-                     'default': (5e-12, 2e-9),
-                     },
-            }
+           }
 
 
 def plot_r_eff3d(big_df, rolling_mean=False, window_size=20):
@@ -58,6 +58,7 @@ def plot_r_eff3d(big_df, rolling_mean=False, window_size=20):
     ax[-1].set_xlabel("t/T$_r$")
     return fig
 
+
 def plot_sigma(big_df, rolling_mean=True, window_size=20):
     n = 5
     color = plt.cm.copper(np.linspace(0, 1, n))
@@ -72,8 +73,8 @@ def plot_sigma(big_df, rolling_mean=True, window_size=20):
         for (peri, group) in sim.groupby('pericenter', sort=False):
             if rolling_mean:
                 group['sigma_star_mean'] = group['sigma_star'].rolling(window_size,
-                                                                 min_periods=1,
-                                                                 center=True).mean()
+                                                                       min_periods=1,
+                                                                       center=True).mean()
                 plottable = 'sigma_star_mean'
             else:
                 plottable = 'sigma_star'
@@ -95,7 +96,6 @@ def plot_sigma(big_df, rolling_mean=True, window_size=20):
 
 
 def plot_color_magnitude_aku(d, color_col='ssfr'):
-
     # norm = matplotlib.colors.LogNorm(vmin=1e-5, vmax=2e-3)
     if color_col in ('ssfr', 'ssfr_mean'):
         norm = matplotlib.colors.LogNorm(vmin=5e-12, vmax=2e-9)
@@ -111,7 +111,7 @@ def plot_color_magnitude_aku(d, color_col='ssfr'):
         norm = matplotlib.colors.Normalize(vmin=-0.25, vmax=1.8)
     else:
         cbar_label = ''
-        norm = matplotlib.colors.LogNorm()#vmin=1e-5, vmax=2e-3)
+        norm = matplotlib.colors.LogNorm()  # vmin=1e-5, vmax=2e-3)
 
     if color_col == 'r':
         cmap_name = 'jet'
@@ -125,15 +125,15 @@ def plot_color_magnitude_aku(d, color_col='ssfr'):
     cm = AkuCM('gr')
 
     perilist = (50, 100, 200, 300)
-    ncols = len(perilist)//2
+    ncols = len(perilist) // 2
 
-    fig, axs = plt.subplots(ncols=ncols, nrows=len(perilist)//2, figsize=(15,8),
+    fig, axs = plt.subplots(ncols=ncols, nrows=len(perilist) // 2, figsize=(15, 8),
                             # constrained_layout=True,
                             )
 
     for ax, peri in zip(axs.flat, perilist):
         # orbits = [k for k in d.keys() if k.startswith(str(sim_n)) or k.startswith(str(68))]
-        orbits = [k for k in d.keys() if k.endswith('p'+str(peri))]
+        orbits = [k for k in d.keys() if k.endswith('p' + str(peri))]
         # fig, ax = plt.subplots(ncols=len(orbits), figsize=(7* len(orbits), 5))
 
         ax.imshow(cm.img, extent=cm.extent, aspect=cm.aspect, alpha=0.25);
@@ -165,13 +165,13 @@ def plot_color_magnitude_aku(d, color_col='ssfr'):
             y = df.color_sdss_g_r_mean
             c = df[color_col]
             print(k, c)
-            ax.scatter(x,y,
-               s=60, marker=get_styles_from_sim(k, scatter=True), alpha=0.8,
-               label=k[:2],
-               c=mappable.to_rgba(c),
-               # c='k',
-              )
-            ax.plot(x,y, ls=":", alpha=0.8)
+            ax.scatter(x, y,
+                       s=60, marker=get_styles_from_sim(k, scatter=True), alpha=0.8,
+                       label=k[:2],
+                       c=mappable.to_rgba(c),
+                       # c='k',
+                       )
+            ax.plot(x, y, ls=":", alpha=0.8)
 
         if ax is axs.flatten()[0]:
             ax.legend()
@@ -183,8 +183,8 @@ def plot_color_magnitude_aku(d, color_col='ssfr'):
         ax.set_xlabel("M$_{r'}$ [mag]");
         ax.set_ylabel("g'-r'")
 
-
-    cbar = fig.colorbar(mappable, ax=axs.ravel().tolist())#, orientation='horizontal')#fraction=0.045*im_ratio, pad=0.04)
+    cbar = fig.colorbar(mappable,
+                        ax=axs.ravel().tolist())  # , orientation='horizontal')#fraction=0.045*im_ratio, pad=0.04)
     cbar.ax.set_ylabel(cbar_label);
     return fig
 
@@ -284,10 +284,10 @@ def plot_n_final(last_df):
     size = 10
 
     fig, ax = plt.subplots(
-         #figsize=(12, 8),
-        figsize = (size*1.2, size * cm.img.shape[0]/cm.img.shape[1]),
-                           # constrained_layout=True,
-                           )
+        # figsize=(12, 8),
+        figsize=(size * 1.2, size * cm.img.shape[0] / cm.img.shape[1]),
+        # constrained_layout=True,
+    )
 
     ax2 = ax.twinx()
     ax2.imshow(cm.img, extent=cm.extent, aspect=cm.aspect, alpha=0.2)
@@ -303,21 +303,21 @@ def plot_n_final(last_df):
         # print(pericenter)
         color_column = g[color_by]
         sc = ax.scatter(g.mag_sdss_r,
-                    g.n,
-                    c=np.log10(g[color_by]),
-                    # marker='x',
-                    marker=get_styles_from_peri(str(pericenter), scatter=True),
-                    s=100,
-                    alpha=0.9,
-                    label=pericenter,
-                    cmap=cmap)
+                        g.n,
+                        c=np.log10(g[color_by]),
+                        # marker='x',
+                        marker=get_styles_from_peri(str(pericenter), scatter=True),
+                        s=100,
+                        alpha=0.9,
+                        label=pericenter,
+                        cmap=cmap)
         # if color_column.min() < vmin:
         #     vmin = np.min(color_column.values[np.nonzero(color_column.values)])
         # if color_column.max() > vmax:
         #     vmax = color_column.max()
     ax.set_yscale('log')
-    ax.set_ylim( cm.extent[2:])
-    ax.set_xlim( cm.extent[:2])
+    ax.set_ylim(cm.extent[2:])
+    ax.set_xlim(cm.extent[:2])
 
     ax.grid(linestyle=":")
     ax.legend()
@@ -325,14 +325,12 @@ def plot_n_final(last_df):
     ax.set_ylabel(r"Sérsic index")
     ax.set_xlabel(labels["mag_sdss_r"])
 
-
     norm = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
     mappable = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
     cbar = fig.colorbar(mappable)
 
     cbar.ax.set_ylabel(labels['log_mass_star'] + ' final')
     return fig
-
 
 
 def plot_ssfr(big_df, cold_gas=False):
@@ -348,9 +346,8 @@ def plot_ssfr(big_df, cold_gas=False):
     for (full_name, sim), ax_s in zip(big_df.groupby('name', sort=False), ax.flat):
         name = full_name[:2]
         for (peri, group) in sim.groupby('pericenter', sort=False):
-
             k = f'{name}p{peri}'
-            group['ssfr'] = group.sfr/group.mass_star
+            group['ssfr'] = group.sfr / group.mass_star
 
             ax_s.plot(group.t_period, group.ssfr, label=peri, alpha=0.8)
 
@@ -375,7 +372,6 @@ def plot_ssfr(big_df, cold_gas=False):
             ax_cg.set_ylabel(labels['cold_gas_short'])
             # ax_cg.set_xlim(-0.25, 0.5)
             ax_cg.grid(ls='-.')
-
 
     # ax_s.legend(, ncol=1)
     ax[0].legend(prop={'size': LEGEND_FONT_SIZE}, ncol=1)
@@ -403,7 +399,7 @@ def plot_mass(big_df, which, xlim=(None, None), ylim=(1e-1, None), log=False):
                 plottable = group.mass_star + group.dm_mass + group.cold_gas
                 ylabel = 'M$_{tot}$ (M$_\odot$)'
             elif which is 'star':
-                plottable =  group.mass_star
+                plottable = group.mass_star
                 ylabel = labels['mass_star']
             elif which is 'm_halo_m_star':
                 plottable = group.dm_mass / group.mass_star
@@ -417,7 +413,7 @@ def plot_mass(big_df, which, xlim=(None, None), ylim=(1e-1, None), log=False):
         # print(ax_s.yaxis.get_major_formatter())
         # ax_s.yaxis.set_major_formatter(matplotlib.ticker.ScalarFormatter())
 
-        ax_s.ticklabel_format(style='sci', scilimits=(-3,3), axis='y')
+        ax_s.ticklabel_format(style='sci', scilimits=(-3, 3), axis='y')
         ax_s.grid(ls=':')
         ax_s.set_title(name)
         ax_s.set_ylim(ylim)
