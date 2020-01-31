@@ -55,28 +55,28 @@ which_plot = st.sidebar.radio(
 st.sidebar.markdown(f'`version: {git_version}`')
 
 if which_plot == 'r_eff':
-    st.markdown('# R_eff')
+    st.header('R_eff')
     rolling_mean = st.checkbox('Rolling mean')
     st.write(plot_r_eff3d(big_df, rolling_mean))
 
 elif which_plot == 'star_mass':
-    st.markdown('# Star mass')
+    st.header('Star mass')
     st.write(plot_mass(big_df, 'star'))
 
 elif which_plot == 'tot_mass':
-    st.markdown('# Total mass')
+    st.header('Total mass')
     st.write(plot_mass(big_df, 'total'))
 
 elif which_plot == 'sigma':
-    st.markdown('# Velocity dispersion')
+    st.header('Velocity dispersion')
     st.markdown('This is the central velocity dispersion within 250 pc.')
     rolling_mean = st.checkbox('Rolling mean')
     st.write(plot_sigma(big_df, rolling_mean))
 
 elif which_plot == 'm_halo_m_star':
-    st.markdown('# M$_h$/M$_\star$ mass')
+    st.header('M$_h$/M$_\star$ mass')
     st.write(plot_mass(big_df, 'm_halo_m_star'))
-    st.markdown('# The final stage of M$_h$/M$_\star$ mass')
+    st.header('The final stage of M$_h$/M$_\star$ mass')
     st.markdown('Do I have any galaxy without DM?')
     st.markdown('''Usually ones considers without DM a galaxy which has DM content equal to barionic one.
                  Given this, I don't have enough DM loss.''')
@@ -85,7 +85,7 @@ elif which_plot == 'm_halo_m_star':
     st.write(plot_mass(big_df, 'm_halo_m_star', xlim=(1, None), log=True))
 
 elif which_plot == 'avg_mu_e':
-    st.markdown('# Average surface brightness inside R_eff')
+    st.header('Average surface brightness inside R_eff')
     sim_n = st.selectbox('Which simulation:', [62, 41])
     color_by = st.radio('Color by:', ['sfr', 'ssfr'])
     # how_many_snaps = st.slider('how many points to show',
@@ -103,12 +103,13 @@ elif which_plot == 'avg_mu_e':
              )
 
 elif which_plot == 'ssfr':
-    st.markdown('# sSFR')
+    st.header('sSFR')
+    st.write('Specific star formation around first infall.')
     cold_gas = st.checkbox('Plot cold gas')
     st.write(plot_ssfr(big_df, cold_gas))
 
 elif which_plot == 'color_magnitude':
-    st.markdown('# Evolution on a Color-Magnitude diagram')
+    st.header('Evolution on a Color-Magnitude diagram')
     color_by = st.selectbox('Color by:', ['ssfr', 'ssfr_mean', 'sfr', 'r', 't_period', ''])
     st.write(plot_color_magnitude_aku(drt, color_col=color_by))
 
