@@ -11,7 +11,7 @@ import cycler
 
 plt.style.use('./MNRAS.mplstyle')
 
-def plot_r_eff3d(big_df, rolling_mean=True, window_size=20):
+def plot_r_eff3d(big_df, rolling_mean=False, window_size=20):
     n = 5
     color = plt.cm.copper(np.linspace(0, 1, n))
     matplotlib.rcParams['axes.prop_cycle'] = cycler.cycler('color', color)
