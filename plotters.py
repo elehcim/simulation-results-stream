@@ -136,8 +136,8 @@ def plot_color_magnitude_aku(d, color_col='ssfr'):
         orbits = [k for k in d.keys() if k.endswith('p' + str(peri))]
         # fig, ax = plt.subplots(ncols=len(orbits), figsize=(7* len(orbits), 5))
 
-        ax.imshow(cm.img, extent=cm.extent, aspect=cm.aspect, alpha=0.25);
-        print(orbits)
+        ax.imshow(cm.img, extent=cm.extent, aspect=cm.aspect, alpha=0.25)
+        # print(orbits)
         for i, k in enumerate(orbits):
             # print(k)
             window_size = 30
@@ -151,7 +151,7 @@ def plot_color_magnitude_aku(d, color_col='ssfr'):
 
             n = len(d[k]) - 1  # -1 because linspace include the limits
             indexes = np.linspace(0, n, 15, dtype=int)
-            print(k, n, indexes)
+            # print(k, n, indexes)
             df = df1.iloc[indexes]
 
             # Print extrema
@@ -164,7 +164,7 @@ def plot_color_magnitude_aku(d, color_col='ssfr'):
             x = df.mag_sdss_r_mean
             y = df.color_sdss_g_r_mean
             c = df[color_col]
-            print(k, c)
+            # print(k, c)
             ax.scatter(x, y,
                        s=60, marker=get_styles_from_sim(k, scatter=True), alpha=0.8,
                        label=k[:2],
@@ -180,18 +180,20 @@ def plot_color_magnitude_aku(d, color_col='ssfr'):
         ax.set_xlim(-19, -8)
         ax.set_ylim(0, 1)
         ax.set_title(f'p{peri}')
-        ax.set_xlabel("M$_{r'}$ [mag]");
+        ax.set_xlabel("M$_{r'}$ [mag]")
         ax.set_ylabel("g'-r'")
 
     cbar = fig.colorbar(mappable,
                         ax=axs.ravel().tolist())  # , orientation='horizontal')#fraction=0.045*im_ratio, pad=0.04)
-    cbar.ax.set_ylabel(cbar_label);
+    cbar.ax.set_ylabel(cbar_label)
     return fig
 
 
-def plot_avg_mu_e_aku(d, sim_n: int, color_by, how_many_snaps=15, show_aku=True, extrema=EXTREMA):
+def plot_avg_mu_e_aku(d, sim_n: int, color_by, how_many_snaps=15, show_aku=True, extrema=None):
     """
     color_by can be 'sfr' or 'ssfr'"""
+    if extrema is None:
+        extrema = EXTREMA
     orbits = [k for k in d.keys() if k.startswith(str(sim_n))]
     assert len(orbits) != 0
 
@@ -213,7 +215,7 @@ def plot_avg_mu_e_aku(d, sim_n: int, color_by, how_many_snaps=15, show_aku=True,
     norm = matplotlib.colors.LogNorm(*extrema[color_by][sim_n])
     mappable = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
 
-    for i, (k, ax) in enumerate(zip(orbits, axs.flatten())):
+    for i, (k, ax) in enumerate(zip(orbits, axs.flat)):
         if show_aku:
             ax.imshow(cm.img, extent=cm.extent, aspect=cm.aspect, alpha=0.2)
 
