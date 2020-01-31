@@ -30,7 +30,7 @@ def get_pages():
         'star_mass': P_star_mass(),
         'tot_mass': P_tot_mass(),
         'm_halo_m_star': P_m_halo_m_star(),
-        'ssfr': P_m_halo_m_star(),
+        'ssfr': P_ssfr(),
         'avg_mu_e': P_avg_mu_e(),
         'color_magnitude': P_CM(),
     }
@@ -69,7 +69,7 @@ def main():
     # """
     #     )
 
-    st.sidebar.header("Version")
+    st.sidebar.subheader("Version")
     st.sidebar.info(git_version)
 
 
