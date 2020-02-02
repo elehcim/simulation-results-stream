@@ -25,14 +25,14 @@ git_version = subprocess.check_output(["git", "describe", "--dirty", "--always",
 
 def get_pages():
     PAGES = {
-        'r_eff': P_r_eff(),
-        'sigma': P_sigma(),
-        'star_mass': P_star_mass(),
-        'tot_mass': P_tot_mass(),
-        'm_halo_m_star': P_m_halo_m_star(),
-        'ssfr': P_ssfr(),
-        'avg_mu_e': P_avg_mu_e(),
-        'color_magnitude': P_CM(),
+        'Effective radius': P_r_eff(),
+        'Sigma': P_sigma(),
+        'Star mass': P_star_mass(),
+        'Total mass': P_tot_mass(),
+        'M_halo/M_star': P_m_halo_m_star(),
+        'sSFR': P_ssfr(),
+        'Average mu_e': P_avg_mu_e(),
+        'Color Magnitude': P_CM(),
     }
     return PAGES
 
