@@ -96,3 +96,8 @@ class P_CM(Page):
         st.header('Evolution on a Color-Magnitude diagram')
         color_by = st.selectbox('Color by:', ['ssfr', 'ssfr_mean', 'sfr', 'r', 't_period', ''])
         st.write(plot_color_magnitude_aku(self.dh.data_rt(), color_col=color_by))
+
+class P_sersic(Page):
+    def _write(self):
+        st.header('Sérsic index at $z=0$')
+        st.write(plot_n_final(self.dh.data_last()))

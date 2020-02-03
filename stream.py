@@ -33,6 +33,7 @@ def get_pages():
         'sSFR': P_ssfr(),
         'Average mu_e': P_avg_mu_e(),
         'Color Magnitude': P_CM(),
+        'Sérsic Index': P_sersic(),
     }
     return PAGES
 
