@@ -94,6 +94,8 @@ class P_ssfr(Page):
 class P_CM(Page):
     def _write(self):
         st.header('Evolution on a Color-Magnitude diagram')
+        st.write('Equidistant snapshot in time where the last snapshot is determined with the '
+                 'tidal radius criterion.')
         color_by = st.selectbox('Color by:', ['ssfr', 'ssfr_mean', 'sfr', 'r', 't_period', ''])
         st.write(plot_color_magnitude_aku(self.dh.data_rt(), color_col=color_by))
 
@@ -101,3 +103,23 @@ class P_sersic(Page):
     def _write(self):
         st.header('Sérsic index at $z=0$')
         st.write(plot_n_final(self.dh.data_last()))
+
+class P_single_sims(Page):
+    _PROPERTIES = ('r_eff3d', 'sigma_star', 'n', 'avg_mu_e',
+              'mass_star', 'sfr', 'ssfr', 'cold_gas', 'm_halo_m_star')
+    _default = ('68p200', '69p200')
+    def _write(self):
+        st.header('Follow evolution of galaxies')
+        st.write(f'The simulations `{self._default}` are very similar yet one gets stripped and the other not.')
+
+        # Note that in multiselect the defult should be a list...
+        # But I don't want to have mutable things around, so I convert it on the fly at the latest
+        which = st.multiselect(
+            "Select sim(s)", options=tuple(self.dh.data().keys()), default=list(self._default),
+        )
+        # print(self._PROPERTIES)
+        props = st.multiselect(
+            "Select properties to plot", options=self._PROPERTIES, default=list(self._PROPERTIES),
+        )
+        # rolling_mean = st.checkbox('Rolling mean', value=True)
+        st.write(plot_single_sims(self.dh.data(), props, which=which))

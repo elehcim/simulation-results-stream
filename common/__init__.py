@@ -1,8 +1,9 @@
 
 
 labels = {'avg_mu_e': r"$\bar{\mu}_{e,r'}$ (mag/arcsec$^2$)",
-          'cold_gas': r"M$_g$ ($T<15000$ K) (M$_\odot$)",
+          'cold_gas_full': r"M$_g$ ($T<15000$ K) (M$_\odot$)",
           'cold_gas_short': r"M$_g$ (M$_\odot$)",
+          'cold_gas': r"M$_g$ (M$_\odot$)",
           'mass_star': r'M$_\star$ (M$_\odot)$',
           'log_mass_star': r'log$_{10}$(M$_\star$/M$_\odot$)',
           'sfr': r'SFR (M$_\odot$/yr)',
@@ -12,6 +13,7 @@ labels = {'avg_mu_e': r"$\bar{\mu}_{e,r'}$ (mag/arcsec$^2$)",
           'r_eff3d': r"R$_{e}^{3d}$ (kpc)",
           'sigma_star': r"$\sigma_\star$ (km/s)",
           'm_halo_m_star': r'$M_h/M_\star$',
+          'n': r"Sérsic index",
           }
 
 FIGSIZE = (5, 1.2)

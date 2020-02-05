@@ -34,6 +34,7 @@ def get_pages():
         'Average mu_e': P_avg_mu_e(),
         'Color Magnitude': P_CM(),
         'Sérsic Index': P_sersic(),
+        'Representative galaxies': P_single_sims(),
     }
     return PAGES
 

@@ -96,6 +96,7 @@ def plot_sigma(big_df, rolling_mean=True, window_size=20):
 
 
 def plot_color_magnitude_aku(d, color_col='ssfr'):
+    # TODO put the colorbar to each subplot
     # norm = matplotlib.colors.LogNorm(vmin=1e-5, vmax=2e-3)
     if color_col in ('ssfr', 'ssfr_mean'):
         norm = matplotlib.colors.LogNorm(vmin=5e-12, vmax=2e-9)
@@ -431,4 +432,47 @@ def plot_mass(big_df, which, xlim=(None, None), ylim=(1e-1, None), log=False):
     # lgnd = ax.legend(loc='upper center', prop={'size': 5}, ncol=5, scatterpoints=1, fontsize=10)
     # for handle in lgnd.legendHandles:
     #     handle.set_sizes([5]);
+    return fig
+
+
+
+# from https://matplotlib.org/users/dflt_style_changes-1.py
+_default_mpl_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
+                       '#9467bd', '#8c564b', '#e377c2', '#7f7f7f',
+                       '#bcbd22', '#17becf']
+
+
+def plot_single_sims(d, properties, which=('69p200', '68p200'), rolling_mean=True, window_size=20):
+    matplotlib.rcParams['axes.prop_cycle'] = cycler.cycler(color=_default_mpl_colors)
+    nrows = len(properties)
+    ncols = 1
+    # print(nrows, ncols)
+    fig, ax = plt.subplots(ncols=ncols, nrows=nrows, figsize=get_figsize(nrows), dpi=200)
+    slicer = slice(None, None, 1)
+    # print(tuple(d[which[0]].columns))
+    for sim in which:
+        df = d[sim]
+        for prop, ax_s in zip(properties, ax.flat):
+            if prop is 'm_halo_m_star':
+                df['m_halo_m_star'] = df.dm_mass / df.mass_star
+            if prop is 'ssfr':
+                df['ssfr'] = df.sfr / df.mass_star
+
+            # if rolling_mean:
+            #     group['r_eff3d_mean'] = group['r_eff3d'].rolling(window_size,
+            #                                                      min_periods=1,
+            #                                                      center=True).mean()
+            ax_s.plot(df.t_period, df[prop], label=sim)
+            ax_s.set_ylabel(labels[prop])
+            if ax_s is not ax[-1]: ax_s.set_xticklabels([])
+
+        ax_s.grid(ls=':')
+        # ax_s.set_title(name)
+        # ax_s.set_ylim(0, 10)
+        # ax_s.set_yscale('log')
+        # ax_s.set_xlim(-0.25, 2)
+
+    # ax_s.legend(, ncol=1)
+    ax[0].legend(prop={'size': LEGEND_FONT_SIZE}, ncol=1)
+    ax[-1].set_xlabel("t/T$_r$")
     return fig
