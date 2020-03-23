@@ -350,7 +350,7 @@ def plot_ssfr(big_df, cold_gas=False):
             k = f'{name}p{peri}'
             group['ssfr'] = group.sfr / group.mass_star
 
-            ax_s.plot(group.t_period, group.ssfr, label=peri, alpha=0.8)
+            ax_s.plot(group.t_period, group.ssfr, label=peri, alpha=0.8, drawstyle='steps')
 
         ax_s.grid(ls=':')
         ax_s.set_title(name)
