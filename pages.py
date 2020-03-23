@@ -10,7 +10,7 @@ import streamlit as st
 from plotters import *
 
 @st.cache
-def get_data(cache_file='data_d_orbit_sideon_20191219.pkl'):
+def get_data(cache_file='data_d_orbit_sideon_20200323.pkl'):
     print('HITTING CACHE')
     dh = DataHandler(cache_file=cache_file)
     return dh
@@ -134,9 +134,16 @@ class P_compare_angmom(Page):
 
     def _write(self):
         st.header(r'Angular momentum and $\lambda_R$')
+        st.write("""Angular momentum is computed on the axis perpendicular to the plane of the orbit by
+            considering star partiles within 10 kpc form the center of the galaxy.""")
         # Maybe select in groups of simulations
-        which = st.multiselect(
-            "Select sim(s)", options=tuple(self.dh.data().keys()), default=list(self._default),
-        )
+        use_sim_family = st.checkbox('Sim family', value=True)
+        if not use_sim_family:
+            which = st.multiselect(
+                "Select sim(s)", options=tuple(self.dh.data().keys()), default=list(self._default),
+            )
+        else:
+            sim_family = st.selectbox("Simulation family", options='62 71 68 69 41'.split(), index=3,)
+            which = tuple([k for k in self.dh.data().keys() if k.startswith(sim_family)])
         rolling_mean = st.checkbox('Rolling mean', value=True)
         st.write(compare_angmom(self.dh.data(), which=which, rolling_mean=rolling_mean))

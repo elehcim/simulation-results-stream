@@ -553,7 +553,7 @@ def compare_angmom(d, which=('69p200', '68p200'), rolling_mean=False, window_siz
         p2 = ax_j.plot(df.t_period, df['js_c_y' + appendix], label=r'$j_s$', color='r')
         ax_j.set_title(sim)
         ax_j.grid(False)
-        ax_j.set_ylim(0, None)
+        # ax_j.set_ylim(0, None)
         ax_j.set_ylabel(labels['js_c_y'])
         if ax_s is ax[0]:
             lns = p1 + p2
