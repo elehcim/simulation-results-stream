@@ -136,7 +136,7 @@ class P_compare_angmom(Page):
         st.header(r'Angular momentum and $\lambda_R$')
         st.write("""Angular momentum is computed on the axis perpendicular to the plane of the orbit by
             considering star partiles within 10 kpc form the center of the galaxy.""")
-        # Maybe select in groups of simulations
+
         use_sim_family = st.checkbox('Sim family', value=True)
         if not use_sim_family:
             which = st.multiselect(
@@ -147,3 +147,9 @@ class P_compare_angmom(Page):
             which = tuple([k for k in self.dh.data().keys() if k.startswith(sim_family)])
         rolling_mean = st.checkbox('Rolling mean', value=True)
         st.write(compare_angmom(self.dh.data(), which=which, rolling_mean=rolling_mean))
+
+class P_v_over_sigma(Page):
+    def _write(self):
+        st.header(r'$v/\sigma$')
+        rolling_mean = st.checkbox('Rolling mean', value=True)
+        st.write(plot_v_over_sigma(self.dh.data_big(), rolling_mean=rolling_mean))

@@ -35,6 +35,7 @@ def get_pages():
         'Representative galaxies': P_single_sims(),
         'Lambda_R': P_lambda_R(),
         'Angular momentum and Lambda_R': P_compare_angmom(),
+        'V/sigma': P_v_over_sigma(),
     }
     return PAGES
 
