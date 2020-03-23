@@ -3,8 +3,6 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import copy
-
-from simulation.data_handler import DataHandler
 from collections import namedtuple
 
 from pages import *
@@ -35,6 +33,8 @@ def get_pages():
         'Color Magnitude': P_CM(),
         'Sérsic Index': P_sersic(),
         'Representative galaxies': P_single_sims(),
+        'Lambda_R': P_lambda_R(),
+        'Angular momentum and Lambda_R': P_compare_angmom(),
     }
     return PAGES
 

@@ -14,6 +14,9 @@ labels = {'avg_mu_e': r"$\bar{\mu}_{e,r'}$ (mag/arcsec$^2$)",
           'sigma_star': r"$\sigma_\star$ (km/s)",
           'm_halo_m_star': r'$M_h/M_\star$',
           'n': r"Sérsic index",
+          'lambda_r': r"$\lambda_R$",
+          # 'js': r"Angmom (kpc km/s)",
+          'js_c_y': r"$j_s$ (kpc km/s)",
           }
 
 FIGSIZE = (5, 1.2)

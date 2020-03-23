@@ -94,8 +94,8 @@ class P_ssfr(Page):
 class P_CM(Page):
     def _write(self):
         st.header('Evolution on a Color-Magnitude diagram')
-        st.write('Equidistant snapshot in time where the last snapshot is determined with the '
-                 'tidal radius criterion.')
+        st.write("""Equidistant snapshot in time where the last snapshot is determined with the
+            tidal radius criterion, i.e. when $r_t > r_{eff}$.""")
         color_by = st.selectbox('Color by:', ['ssfr', 'ssfr_mean', 'sfr', 'r', 't_period', ''])
         st.write(plot_color_magnitude_aku(self.dh.data_rt(), color_col=color_by))
 
@@ -123,3 +123,20 @@ class P_single_sims(Page):
         )
         # rolling_mean = st.checkbox('Rolling mean', value=True)
         st.write(plot_single_sims(self.dh.data(), props, which=which))
+
+class P_lambda_R(Page):
+    def _write(self):
+        st.header(r'$\lambda_R$')
+        st.write(plot_lambda_R(self.dh.data_big()))
+
+class P_compare_angmom(Page):
+    _default = ('68p200', '69p200')
+
+    def _write(self):
+        st.header(r'Angular momentum and $\lambda_R$')
+        # Maybe select in groups of simulations
+        which = st.multiselect(
+            "Select sim(s)", options=tuple(self.dh.data().keys()), default=list(self._default),
+        )
+        rolling_mean = st.checkbox('Rolling mean', value=True)
+        st.write(compare_angmom(self.dh.data(), which=which, rolling_mean=rolling_mean))

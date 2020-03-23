@@ -476,3 +476,90 @@ def plot_single_sims(d, properties, which=('69p200', '68p200'), rolling_mean=Tru
     ax[0].legend(prop={'size': LEGEND_FONT_SIZE}, ncol=1)
     ax[-1].set_xlabel("t/T$_r$")
     return fig
+
+
+def plot_lambda_R(big_df, rolling_mean=False, window_size=20):
+    n = 5
+    color = plt.cm.copper(np.linspace(0, 1, n))
+    matplotlib.rcParams['axes.prop_cycle'] = cycler.cycler('color', color)
+    nrows = 5
+    ncols = 1
+    fig, ax = plt.subplots(ncols=ncols, nrows=nrows, figsize=get_figsize(nrows), dpi=200)
+    slicer = slice(None, None, 1)
+
+    for (full_name, sim), ax_s in zip(big_df.groupby('name', sort=False), ax.flat):
+        name = full_name[:2]
+        for (peri, group) in sim.groupby('pericenter', sort=False):
+
+            # k = f'{name}p{peri}'
+            if rolling_mean:
+                group['lambda_r_mean'] = group['lambda_r'].rolling(window_size,
+                                                                 min_periods=1,
+                                                                 center=True).mean()
+
+                ax_s.plot(group.t_period, group.lambda_r_mean, label=peri)
+            else:
+                ax_s.plot(group.t_period, group.lambda_r, label=peri)
+        if ax_s is not ax[-1]: ax_s.set_xticklabels([])
+
+        ax_s.grid(ls=':')
+        ax_s.set_title(name)
+        ax_s.set_ylabel(labels['lambda_r'])
+        ax_s.set_ylim(0, 1)
+        ax_s.axvline(0, alpha=0.4)
+        ax_s.axvline(0.5, ls="--", alpha=0.4)
+        ax_s.axvline(1, alpha=0.4)
+        # ax_s.set_yscale('log')
+        ax_s.set_xlim(-0.25, 2)
+
+    # ax_s.legend(, ncol=1)
+    ax[0].legend(prop={'size': LEGEND_FONT_SIZE}, ncol=1)
+    ax[-1].set_xlabel("t/T$_r$")
+    return fig
+
+
+def compare_angmom(d, which=('69p200', '68p200'), rolling_mean=False, window_size=20):
+    n = len(which)
+    matplotlib.rcParams['axes.prop_cycle'] = cycler.cycler(color=_default_mpl_colors)
+    nrows = n
+    ncols = 1
+    fig, ax = plt.subplots(ncols=ncols, nrows=nrows, figsize=get_figsize(nrows), dpi=200)
+    slicer = slice(None, None, 1)
+    if n == 1:
+        ax = [ax]
+    for sim, ax_s in zip(which, ax):
+        df = d[sim]
+        print(list(df.keys()))
+        appendix = ''
+        if rolling_mean:
+            appendix = '_mean'
+            for prop in 'lambda_r', 'js_c_y':
+                df[f'{prop}_mean'] = df[prop].rolling(window_size,
+                                                      min_periods=1,
+                                                      center=True).mean()
+        p1 = ax_s.plot(df.t_period, df['lambda_r' + appendix], label=r'$\lambda_R$', color='b')
+        ax_s.set_ylabel(labels['lambda_r'])
+        if ax_s is not ax[-1]: ax_s.set_xticklabels([])
+        ax_s.grid(ls=':')
+        # ax_s.legend(sim, ncol=1)
+        ax_s.set_title(sim)
+        ax_s.set_ylim(0, 1)
+        ax_s.set_xlim(-0.25, 2)
+        ax_s.axvline(0, alpha=0.4)
+        ax_s.axvline(0.5, ls="--", alpha=0.4)
+        ax_s.axvline(1, alpha=0.4)
+
+        ax_j = ax_s.twinx()
+        p2 = ax_j.plot(df.t_period, df['js_c_y' + appendix], label=r'$j_s$', color='r')
+        ax_j.set_title(sim)
+        ax_j.grid(False)
+        ax_j.set_ylim(0, None)
+        ax_j.set_ylabel(labels['js_c_y'])
+        if ax_s is ax[0]:
+            lns = p1 + p2
+            labs = [l.get_label() for l in lns]
+            ax_s.legend(lns, labs, prop={'size': LEGEND_FONT_SIZE}, loc=0)
+
+    ax[-1].set_xlabel("t/T$_r$")
+    return fig
+
