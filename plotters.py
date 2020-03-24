@@ -559,9 +559,7 @@ def compare_angmom(d, which=('69p200', '68p200'), rolling_mean=False, window_siz
     ax[-1].set_xlabel("t/T$_r$")
     return fig
 
-
-
-def plot_v_over_sigma(big_df, rolling_mean=False, window_size=20):
+def plot_v_over_sigma(big_df, rolling_mean=True, window_size=20, upper_limit=5):
     n = 5
     color = plt.cm.copper(np.linspace(0, 1, n))
     matplotlib.rcParams['axes.prop_cycle'] = cycler.cycler('color', color)
@@ -570,24 +568,25 @@ def plot_v_over_sigma(big_df, rolling_mean=False, window_size=20):
     fig, ax = plt.subplots(ncols=ncols, nrows=nrows, figsize=get_figsize(nrows), dpi=200)
     slicer = slice(None, None, 1)
 
+    s = big_df.v_over_sigma
+    big_df['masked_v_over_sigma'] = s.mask(s > upper_limit)
     for (full_name, sim), ax_s in zip(big_df.groupby('name', sort=False), ax.flat):
         name = full_name[:2]
         for (peri, group) in sim.groupby('pericenter', sort=False):
-            group['v_over_sigma'][group['v_over_sigma'] > 5] = np.nan
             if rolling_mean:
-                group['v_over_sigma_mean'] = group['v_over_sigma'].rolling(window_size,
+                group['v_over_sigma_mean'] = group['masked_v_over_sigma'].rolling(window_size,
                                                                  min_periods=1,
                                                                  center=True).mean()
                 ax_s.plot(group.t_period, group.v_over_sigma_mean, label=peri)
 
-                # group['v_over_sigma_std'] = group['v_over_sigma'].rolling(window_size,
+                # group['v_over_sigma_std'] = group['masked_v_over_sigma'].rolling(window_size,
                 #                                                  min_periods=1,
                 #                                                  center=True).std()
                 # m = group.v_over_sigma_mean
                 # s = group["v_over_sigma_std"]
                 # ax_s.fill_between(group.t_period, m-s,m+s, label=peri, alpha=0.6)
             else:
-                ax_s.plot(group.t_period, group.v_over_sigma, label=peri)
+                ax_s.plot(group.t_period, group.masked_v_over_sigma, label=peri)
         if ax_s is not ax[-1]: ax_s.set_xticklabels([])
 
         ax_s.grid(ls=':')
