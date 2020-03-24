@@ -18,6 +18,7 @@ labels = {'avg_mu_e': r"$\bar{\mu}_{e,r'}$ (mag/arcsec$^2$)",
           'v_over_sigma': r"$v/\sigma$",
           # 'js': r"Angmom (kpc km/s)",
           'js_c_y': r"$j_s$ (kpc km/s)",
+          'ellipticity': r"$\epsilon$",
           }
 
 FIGSIZE = (5, 1.2)

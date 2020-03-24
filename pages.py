@@ -153,3 +153,10 @@ class P_v_over_sigma(Page):
         st.header(r'$v/\sigma$')
         rolling_mean = st.checkbox('Rolling mean', value=True)
         st.write(plot_v_over_sigma(self.dh.data_big(), rolling_mean=rolling_mean))
+
+class P_lambda_mass_Scott2020(Page):
+    def _write(self):
+        st.header(r'$\lambda_R$ vs. M$_\star$ at $z=0$')
+        st.write('Comparison with Scott et al. 2020, fig. 9.')
+        color_by = st.selectbox("Color by", options=('cold_gas', 'mag_sdss_r', 'ellipticity'), index=1)
+        st.write(plot_lambda_R_vs_mass_final(self.dh.data_last(), color_by=color_by))

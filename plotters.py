@@ -56,7 +56,6 @@ def plot_r_eff3d(big_df, rolling_mean=False, window_size=20):
     ax[-1].set_xlabel("t/T$_r$")
     return fig
 
-
 def plot_sigma(big_df, rolling_mean=True, window_size=20):
     n = 5
     color = plt.cm.copper(np.linspace(0, 1, n))
@@ -282,7 +281,7 @@ def plot_n_final(last_df):
 
     # cmap = matplotlib.cm.get_cmap('jet_r', 50)
     cmap = matplotlib.cm.get_cmap('jet', 50)
-    size = 10
+    size = 8
 
     fig, ax = plt.subplots(
         # figsize=(12, 8),
@@ -513,6 +512,62 @@ def plot_lambda_R(big_df, rolling_mean=False, window_size=20):
     ax[-1].set_xlabel("t/T$_r$")
     return fig
 
+def plot_lambda_R_vs_mass_final(last_df, color_by='cold_gas'):
+    cm = AkuCM('Scott2020F9')
+    print(cm.filename)
+
+    cmap = matplotlib.cm.get_cmap('jet', 50)
+    size = 5
+    print(color_by)
+    # print(1/cm.img.shape[0] / cm.img.shape[1])
+    fig, ax = plt.subplots(
+        figsize=(size*1.25, size * cm.img.shape[0] / cm.img.shape[1]),
+        # constrained_layout=True,
+    )
+
+    ax2 = ax.twinx()
+    ax2.imshow(cm.img, extent=cm.extent, aspect=cm.aspect, alpha=0.2)
+    ax2.set_yticks([], [])
+
+    vmin = last_df[color_by].min()
+    vmax = last_df[color_by].max()
+    # vmin = np.inf
+    # vmax = 0
+    color_log = False if color_by in ('mag_sdss_r', 'ellipticity') else True
+    groups = last_df.groupby('pericenter')
+    for pericenter, g in groups:
+        # print(pericenter)
+        color_column = g[color_by]
+        sc = ax.scatter(np.log10(g.mass_star),
+                        g.lambda_r,
+                        c=np.log10(g[color_by]) if color_log else g[color_by],
+                        # marker='x',
+                        marker=get_styles_from_peri(str(pericenter), scatter=True),
+                        s=100,
+                        alpha=0.9,
+                        label=pericenter,
+                        cmap=cmap)
+        # if color_column.min() < vmin:
+        #     vmin = np.min(color_column.values[np.nonzero(color_column.values)])
+        # if color_column.max() > vmax:
+        #     vmax = color_column.max()
+    # ax.set_yscale('log')
+    print(cm.extent)
+    ax.set_xlim(cm.extent[:2])
+    ax.set_ylim(cm.extent[2:])
+
+    ax.grid(linestyle=":")
+    ax.legend()
+
+    ax.set_xlabel(labels["log_mass_star"])
+    ax.set_ylabel(labels['lambda_r'])
+
+    norm = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
+    mappable = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
+    cbar = fig.colorbar(mappable)
+
+    cbar.ax.set_ylabel(labels[color_by] + ' final')
+    return fig
 
 def compare_angmom(d, which=('69p200', '68p200'), rolling_mean=False, window_size=20):
     n = len(which)

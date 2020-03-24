@@ -36,6 +36,7 @@ def get_pages():
         'Lambda_R': P_lambda_R(),
         'Angular momentum and Lambda_R': P_compare_angmom(),
         'V/sigma': P_v_over_sigma(),
+        'Lambda vs. mass Scott2020': P_lambda_mass_Scott2020(),
     }
     return PAGES
 
