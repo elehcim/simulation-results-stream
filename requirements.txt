@@ -1,0 +1,7 @@
+simulation==v0.3
+pandas
+cython
+tqdm
+pynbody
+streamlit
+matplotlib
