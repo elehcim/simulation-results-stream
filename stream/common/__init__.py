@@ -29,6 +29,7 @@ def get_figsize(nrows):
     return FIGSIZE[0], FIGSIZE[1]*nrows
 
 def _max_width_():
+    import streamlit as st
     max_width_str = f"max-width: 2000px;"
     st.markdown(
         f"""

@@ -2,12 +2,10 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pylab as plt
-import matplotlib
-import streamlit as st
 
-from common import labels, get_figsize, LEGEND_FONT_SIZE
+from .common import labels, get_figsize, LEGEND_FONT_SIZE
 
-from simulation.simdata import get_color_from_name, get_styles_from_peri
+# from simulation.simdata import get_color_from_name, get_styles_from_peri
 from simulation.data_handler import DataHandler
 import cycler
 

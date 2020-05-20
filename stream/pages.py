@@ -1,13 +1,7 @@
-import numpy as np
-import pandas as pd
-import streamlit as st
-import matplotlib.pyplot as plt
-import copy
-
 from simulation.data_handler import DataHandler
 from collections import namedtuple
 import streamlit as st
-from plotters import *
+from .plotters import *
 
 @st.cache
 def get_data(cache_file='data_d_orbit_sideon_20200323.pkl'):
