@@ -1,15 +1,13 @@
 mkdir -p ~/.streamlit/
 
-echo "\
-[general]\n\
-email = \"michele.mastropietro@gmail.com\"\n\
+echo "[general]
+email = \"michele.mastropietro@gmail.com\"
 " > ~/.streamlit/credentials.toml
 
-echo "\
-[server]\n\
-headless = true\n\
-enableCORS=false\n\
-port = $PORT\n\
+echo "[server]
+headless = true
+enableCORS=false
+port = $PORT
 " > ~/.streamlit/config.toml
 
 # conda install numpy
