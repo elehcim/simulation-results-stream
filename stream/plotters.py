@@ -7,7 +7,7 @@ from .common import labels, get_figsize, LEGEND_FONT_SIZE
 from simulation.akucm import AkuCM
 
 from simulation.simdata import get_styles_from_peri, get_styles_from_sim
-import cycler
+# import cycler
 
 plt.style.use('./MNRAS.mplstyle')
 
