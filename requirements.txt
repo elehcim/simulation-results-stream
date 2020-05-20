@@ -4,4 +4,3 @@ cython
 tqdm
 streamlit
 matplotlib
-pynbody
