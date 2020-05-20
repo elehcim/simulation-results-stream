@@ -4,3 +4,8 @@ cython
 tqdm
 streamlit
 matplotlib
+astropy
+scikit-image
+photutils
+scipy
+numba
