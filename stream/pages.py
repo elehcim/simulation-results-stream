@@ -1,7 +1,7 @@
 from simulation.data_handler import DataHandler
 from collections import namedtuple
 import streamlit as st
-from .plotters import *
+from plotters import *
 
 
 @st.cache

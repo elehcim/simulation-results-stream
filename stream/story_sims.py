@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pylab as plt
 
-from .common import labels, get_figsize, LEGEND_FONT_SIZE
+from common import labels, get_figsize, LEGEND_FONT_SIZE
 
 # from simulation.simdata import get_color_from_name, get_styles_from_peri
 from simulation.data_handler import DataHandler

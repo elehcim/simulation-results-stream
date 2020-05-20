@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pylab as plt
 import matplotlib
 
-from .common import labels, get_figsize, LEGEND_FONT_SIZE
+from common import labels, get_figsize, LEGEND_FONT_SIZE
 from simulation.akucm import AkuCM
 
 from simulation.simdata import get_styles_from_peri, get_styles_from_sim
