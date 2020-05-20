@@ -3,15 +3,16 @@ from collections import namedtuple
 import streamlit as st
 from .plotters import *
 
+
 @st.cache
-def get_data(cache_file='data_d_orbit_sideon_20200323.pkl'):
+def _get_data(cache_file='data_d_orbit_sideon_20200323.pkl'):
     print('HITTING CACHE')
     dh = DataHandler(cache_file=cache_file)
     return dh
 
 class Page():
     def __init__(self):
-        self.dh = get_data()
+        self.dh = _get_data()
 
     def write(self, *args, **kwargs):
         self._write(*args, **kwargs)

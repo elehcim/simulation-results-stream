@@ -7,19 +7,19 @@ from .common import labels, get_figsize, LEGEND_FONT_SIZE
 from simulation.akucm import AkuCM
 
 from simulation.simdata import get_styles_from_peri, get_styles_from_sim
-# import cycler
+import cycler
 
 plt.style.use('./MNRAS.mplstyle')
 
-EXTREMA = {'sfr': {41: (0.0004326997212649507, 0.03681058373613701),
-                   62: (0.0004326997212649507, 0.03681058373613701),
+_EXTREMA = {'sfr': {41: (0.0004326997212649507, 0.03681058373613701),
+                    62: (0.0004326997212649507, 0.03681058373613701),
                    'default': (1e-5, 2e-3),
-                   },
+                    },
            'ssfr': {41: (2.313699463943961e-11, 1.2062309021873976e-09),
                     62: (8.77977968105377e-11, 6.750326315134827e-09),
                     'default': (5e-12, 2e-9),
                     },
-           }
+            }
 
 
 def plot_r_eff3d(big_df, rolling_mean=False, window_size=20):
@@ -191,7 +191,7 @@ def plot_avg_mu_e_aku(d, sim_n: int, color_by, how_many_snaps=15, show_aku=True,
     """
     color_by can be 'sfr' or 'ssfr'"""
     if extrema is None:
-        extrema = EXTREMA
+        extrema = _EXTREMA
     orbits = [k for k in d.keys() if k.startswith(str(sim_n))]
     assert len(orbits) != 0
 
