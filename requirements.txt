@@ -1,4 +1,5 @@
 pandas
+numpy
 cython
 tqdm
 pynbody
