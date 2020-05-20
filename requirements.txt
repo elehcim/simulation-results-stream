@@ -2,6 +2,5 @@ pandas
 numpy
 cython
 tqdm
-pynbody
 streamlit
 matplotlib

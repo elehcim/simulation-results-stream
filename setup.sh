@@ -12,4 +12,6 @@ enableCORS=false\n\
 port = $PORT\n\
 " > ~/.streamlit/config.toml
 
+python -m pip install pynbody
+
 python -m pip install git+https://github.com/elehcim/simulation.git
