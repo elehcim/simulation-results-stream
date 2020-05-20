@@ -10,6 +10,8 @@ RUN pip install -qr /tmp/requirements.txt
 ADD ./webapp /opt/webapp/
 WORKDIR /opt/webapp
 
+# Python should be there: I use the requirements and then build pynbody...
+
 # RUN conda install numpy
 RUN python -m pip install -r requirements
 RUN python -m pip install pynbody
