@@ -5,8 +5,10 @@ import streamlit as st
 from pages import *
 import subprocess
 
-git_version = subprocess.check_output(["git", "describe", "--dirty", "--always", "--tags"]).strip().decode()
-
+try:
+    git_version = subprocess.check_output(["git", "describe", "--dirty", "--always", "--tags"]).strip().decode()
+except:
+    git_version = ''
 
 # def write_page(page):  # pylint: disable=redefined-outer-name
 #     """Writes the specified page/module
@@ -70,8 +72,9 @@ def main():
     # """
     #     )
 
-    st.sidebar.subheader("Version")
-    st.sidebar.info(git_version)
+    if git_version:
+        st.sidebar.subheader("Version")
+        st.sidebar.info(git_version)
 
 
 if __name__ == "__main__":
