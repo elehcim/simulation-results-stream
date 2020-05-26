@@ -9,7 +9,7 @@ from simulation.akucm import AkuCM
 from simulation.simdata import get_styles_from_peri, get_styles_from_sim
 import cycler
 
-# plt.style.use('MNRAS.mplstyle')
+plt.style.use('MNRAS.mplstyle')
 
 _EXTREMA = {'sfr': {41: (0.0004326997212649507, 0.03681058373613701),
                     62: (0.0004326997212649507, 0.03681058373613701),
