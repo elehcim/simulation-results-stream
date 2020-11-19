@@ -22,20 +22,20 @@ except:
 
 def get_pages():
     PAGES = {
+        'Star mass': P_star_mass(),
         'Effective radius': P_r_eff(),
         'Sigma': P_sigma(),
-        'Star mass': P_star_mass(),
         'Total mass': P_tot_mass(),
         'M_halo/M_star': P_m_halo_m_star(),
         'sSFR': P_ssfr(),
-        'Average mu_e': P_avg_mu_e(),
-        'Color Magnitude': P_CM(),
-        'Sérsic Index': P_sersic(),
-        'Representative galaxies': P_single_sims(),
         'Lambda_R': P_lambda_R(),
         'Angular momentum and Lambda_R': P_compare_angmom(),
         'V/sigma': P_v_over_sigma(),
-        'Lambda vs. mass Scott2020': P_lambda_mass_Scott2020(),
+        'Representative galaxies': P_single_sims(),
+        'Average mu_e (cf. Venhola2019)': P_avg_mu_e(),
+        'Color Magnitude (cf. Venhola2019)': P_CM(),
+        'Sérsic Index (cf. Venhola2019)': P_sersic(),
+        'Lambda vs. mass (cf. Scott2020)': P_lambda_mass_Scott2020(),
     }
     return PAGES
 
