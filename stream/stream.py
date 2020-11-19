@@ -57,7 +57,7 @@ def get_pages():
 
 def main():
     """Main function of the App"""
-    st.sidebar.image('logo.png',use_column_width=True)
+    st.sidebar.image('https://www.astro.rug.nl/~sundial/images/logo.png',use_column_width=True)
     st.sidebar.title("Navigation")
     pages = get_pages()
     selection = st.sidebar.radio("Go to", list(pages.keys()))
@@ -73,7 +73,7 @@ def main():
     # """
     #     )
 
-    st.sidebar.image('EU.png')
+    st.sidebar.image('https://www.astro.rug.nl/~sundial/images/EU.png')
 
     if git_version:
         st.sidebar.subheader("Version")
