@@ -57,6 +57,7 @@ def get_pages():
 
 def main():
     """Main function of the App"""
+    st.sidebar.image('logo.png',use_column_width=True)
     st.sidebar.title("Navigation")
     pages = get_pages()
     selection = st.sidebar.radio("Go to", list(pages.keys()))
@@ -71,6 +72,8 @@ def main():
     #         This app is maintained by Michele Mastropietro.
     # """
     #     )
+
+    st.sidebar.image('EU.png')
 
     if git_version:
         st.sidebar.subheader("Version")
