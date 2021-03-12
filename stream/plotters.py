@@ -291,7 +291,7 @@ def plot_n_final(last_df):
 
     ax2 = ax.twinx()
     ax2.imshow(cm.img, extent=cm.extent, aspect=cm.aspect, alpha=0.2)
-    ax2.set_yticks([], [])
+    ax2.set_yticks([])
 
     color_by = 'mass_star'
     vmin = last_df[color_by].min()
@@ -527,7 +527,7 @@ def plot_lambda_R_vs_mass_final(last_df, color_by='cold_gas'):
 
     ax2 = ax.twinx()
     ax2.imshow(cm.img, extent=cm.extent, aspect=cm.aspect, alpha=0.2)
-    ax2.set_yticks([], [])
+    ax2.set_yticks([])
 
     vmin = last_df[color_by].min()
     vmax = last_df[color_by].max()
@@ -580,7 +580,7 @@ def compare_angmom(d, which=('69p200', '68p200'), rolling_mean=False, window_siz
         ax = [ax]
     for sim, ax_s in zip(which, ax):
         df = d[sim]
-        print(list(df.keys()))
+        # print(list(df.keys()))
         appendix = ''
         if rolling_mean:
             appendix = '_mean'
