@@ -5,7 +5,7 @@ from plotters import *
 
 
 @st.cache
-def _get_data(cache_file='data_d_orbit_sideon_20200323.pkl'):
+def _get_data(cache_file=None):
     print('HITTING CACHE')
     dh = DataHandler(cache_file=cache_file)
     return dh
@@ -97,7 +97,9 @@ class P_CM(Page):
 class P_sersic(Page):
     def _write(self):
         st.header('Sérsic index at $z=0$')
-        st.write(plot_n_final(self.dh.data_last()))
+        last_df = self.dh.data_last()
+        st.write(plot_n_final(last_df))
+        st.write(last_df[['time', 'n', 'mag_sdss_r', 'mass_star']].style.format('{:,.3g}'))
 
 class P_single_sims(Page):
     _PROPERTIES = ('r_eff3d', 'sigma_star', 'n', 'avg_mu_e',
