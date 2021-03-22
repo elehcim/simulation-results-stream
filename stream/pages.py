@@ -131,8 +131,8 @@ class P_compare_angmom(Page):
 
     def _write(self):
         st.header(r'Angular momentum and $\lambda_R$')
-        st.write("""Angular momentum is computed on the axis perpendicular to the plane of the orbit by
-            considering star partiles within 10 kpc form the center of the galaxy.""")
+        st.write(r"""Both specific angular momentum and $\lambda_R$ are computed on the axis perpendicular to the plane of the orbit by
+            considering star particles within 10 kpc form the center of the galaxy.""")
 
         use_sim_family = st.checkbox('Sim family', value=True)
         if not use_sim_family:

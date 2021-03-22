@@ -611,6 +611,7 @@ def compare_angmom(d, which=('69p200', '68p200'), rolling_mean=False, window_siz
             labs = [l.get_label() for l in lns]
             ax_s.legend(lns, labs, prop={'size': LEGEND_FONT_SIZE}, loc=0)
 
+    fig.tight_layout()
     ax[-1].set_xlabel("t/T$_r$")
     return fig
 
